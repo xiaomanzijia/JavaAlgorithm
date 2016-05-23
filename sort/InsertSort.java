@@ -1,15 +1,16 @@
 package datastruct.ErChaShu.sort;
 
+import java.util.HashMap;
+
 /**
  * Created by licheng on 21/5/16.
  */
 public class InsertSort {
     public static void main(String[] args) {
-        int[] a = {43,23,56,32,12,67,34,89,22};
-        sort(a);
-        for (int i = 0; i < a.length; i++) {
-            System.out.print(a[i]+" ");
-        }
+        int a[]={1,2,2,3};
+        int b[]={1,2,4,5};
+        int c[] = {2,4,5,3,6,2,1,6,27,9,5,6,6,7,10,4,10,3,3};
+        chazhao(c);
     }
 
     //插入排序
@@ -104,6 +105,48 @@ public class InsertSort {
     }
 
     //归并排序
+    public static void bingSort(int[] a, int[] b) {
+        int result[] = new int[a.length + b.length];
+        int i = 0, j = 0, k = 0;   //i:用于标示a数组    j：用来标示b数组  k：用来标示传入的数组
+        while (i < a.length && j < b.length)
+            if (a[i] <= b[j]) {
+                result[k++] = a[i++];
+            } else {
+                result[k++] = b[j++];
+            }
+
+        /* 后面连个while循环是用来保证两个数组比较完之后剩下的一个数组里的元素能顺利传入 */
+        while (i < a.length)
+            result[k++] = a[i++];
+        while (j < b.length)
+            result[k++] = b[j++];
+
+        for (int ii = 0; ii < result.length; ii++) {
+            System.out.print(result[ii] + " ");
+        }
+    }
+
+
+
+
+    //查找数组数字重复次数
+    public static int chazhao(int[] a){
+        HashMap<Integer,Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < a.length; i++) {
+            if(map.containsKey(a[i])){
+                int aa = map.get(a[i]);
+                aa ++ ;
+                map.put(a[i],aa);
+            }else {
+                map.put(a[i],1);
+            }
+        }
+        for (Integer i : map.keySet()){
+            System.out.println(i+" "+map.get(i));
+        }
+        return 0;
+    }
+
 
 
 
