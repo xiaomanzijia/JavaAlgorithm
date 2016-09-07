@@ -12,6 +12,98 @@ public class one {
         System.out.println(convert(s, 3));
     }
     
+    public static boolean isValidSudokud(char[][] board) {
+        HashSet<Character> set = new HashSet<Character>();
+        // Check for each row
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.')
+                    continue;
+                if (set.contains(board[i][j]))
+                    return false;
+                set.add(board[i][j]);
+            }
+            set.clear();
+        }
+        
+        // Check for each column
+        for (int j = 0; j < 9; j++) {
+            for (int i = 0; i < 9; i++) {
+                if (board[i][j] == '.')
+                    continue;
+                if (set.contains(board[i][j]))
+                    return false;
+                set.add(board[i][j]);
+            }
+            set.clear();
+        }
+        
+        // Check for each sub-grid
+        for (int k = 0; k < 9; k++) {
+            for (int i = k/3*3; i < k/3*3+3; i++) {
+                for (int j = (k%3)*3; j < (k%3)*3+3; j++) {
+                    if (board[i][j] == '.')
+                        continue;
+                    if (set.contains(board[i][j]))
+                        return false;
+                    set.add(board[i][j]);
+                }
+            }
+            set.clear();
+        }
+        
+        return true;
+    }
+    
+    /** 检验九宫格 **/
+    public static boolean isValidSudoku(char[][] board) {
+        Hashtable h;
+        //检验每一行
+        for (int i = 0; i < board.length; i++) {
+            h = new Hashtable();
+            for (int j = 0; j < board[i].length; j++) {
+                if(h.contains(board[i][j])){
+                    return false;
+                }
+                if(board[i][j] != '.'){
+                    h.put(board[i][j], 0);
+                }
+                
+            }
+        }
+        
+        //检验每一列
+        for (int i = 0; i < board.length; i++) {
+            h = new Hashtable();
+            for (int j = 0; j < board[i].length; j++) {
+                if(h.contains(board[i][j])){
+                    return false;
+                }
+                if(board[i][j] != '.'){
+                    h.put(board[j][i], 0);
+                }
+            }
+        }
+        
+        //检验每一个框
+        for (int i = 0; i < board.length; i ++) {
+            int a = 0;
+            h = new Hashtable();
+            for (int j = i / 3 * 3; j < i / 3 * 3 + 3; j++) {
+                for (int k = (i % 3) * 3 ; k < (i % 3) * 3 + 3; k++) {
+                    if(h.contains(board[j][k])){
+                        return false;
+                    }
+                    if(board[j][k] != '.'){
+                        h.put(board[j][k], 0);
+                    }
+                }
+            }
+            
+        }
+        return true;
+    }
+    
     /** 将字符串中的元音倒序输出 **/
     public static String reverseVowels(String s) {
         char[] ss = s.toCharArray();
